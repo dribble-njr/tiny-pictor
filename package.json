@@ -1,0 +1,43 @@
+{
+  "name": "tiny-pictor",
+  "version": "0.0.1",
+  "description": "A tiny image compress cross-platform cli",
+  "bin": {
+    "tp": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "test",
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [
+    "tiny",
+    "pictor",
+    "tiny png",
+    "picture",
+    "images",
+    "image optimization",
+    "image compress",
+    "compress",
+    "image",
+    "cli",
+    "cross platform"
+  ],
+  "author": "dribble-njr（https://github.com/dribble-njr）",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "sharp": "^0.33.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.10.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
