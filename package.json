@@ -1,7 +1,7 @@
 {
   "name": "tiny-pictor",
   "version": "0.0.1",
-  "description": "A tiny image compress cross-platform cli",
+  "description": "A tiny image compress cross-platform cli based on sharp",
   "bin": {
     "tp": "./bin/cli.js"
   },
