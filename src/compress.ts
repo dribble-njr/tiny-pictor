@@ -1,4 +1,5 @@
 import sharp from 'sharp';
+import { dirname } from 'path';
 import { mkdirP, pathExists } from './fs';
 import { Options } from './types';
 import { traversePath } from './util';
@@ -30,6 +31,7 @@ export const compressImage = async (options: Options) => {
 
   const callback = async (file: string, outputFileName: string) => {
     try {
+      await mkdirP(dirname(outputFileName));
       await sharp(file)
         .resize(Number(width), Number(height))
         .toFile(outputFileName);
