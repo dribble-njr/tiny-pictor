@@ -1,5 +1,5 @@
-import { promises as fsPromises, constants, Stats } from "fs";
-import { dirname } from "path";
+import { promises as fsPromises, constants, Stats } from 'fs';
+import { dirname } from 'path';
 
 export async function mkdirP(src: string): Promise<void> {
   console.log(`mkdir -p ${src}`);
@@ -28,4 +28,8 @@ export async function remove(src: string): Promise<void> {
 export async function stat(src: string): Promise<Stats> {
   console.log(`fs.stat(${src})`);
   return await fsPromises.stat(src);
+}
+
+export async function readDir(src: string): Promise<string[]> {
+  return await fsPromises.readdir(src);
 }

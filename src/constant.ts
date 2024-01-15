@@ -1,4 +1,4 @@
-import pkg from "../package.json";
+import pkg from '../package.json';
 
 const VERSION = pkg.version;
 const NAME = pkg.name;

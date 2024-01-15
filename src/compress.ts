@@ -1,24 +1,26 @@
-import sharp from "sharp";
-import { mkdirP, pathExists } from "./fs";
-import { Options } from "./types";
+import sharp from 'sharp';
+import { mkdirP, pathExists } from './fs';
+import { Options } from './types';
+import { traversePath } from './util';
 
 /**
  * compress image by options
+ *
  * @param option Options
  */
 export const compressImage = async (options: Options) => {
-  console.log("Input Path:", options.inputPath);
-  console.log("Output Path:", options.outputPath);
-  console.log("Width:", options.width);
-  console.log("Height:", options.height);
-  console.log("Format:", options.format);
   const { inputPath, width, height, format, outputPath } = options;
+  console.log('Input Path:', inputPath);
+  console.log('Output Path:', outputPath);
+  console.log('Width:', width);
+  console.log('Height:', height);
+  console.log('Format:', format);
 
   const inputPathExist = await pathExists(inputPath);
   const outputPathExist = await pathExists(outputPath);
 
   if (!inputPathExist) {
-    console.error("Input path does not exist:", inputPath);
+    console.error('Input path does not exist:', inputPath);
     return;
   }
 
@@ -26,14 +28,18 @@ export const compressImage = async (options: Options) => {
     mkdirP(outputPath);
   }
 
-  sharp(inputPath)
-    .resize(Number(width), Number(height))
-    // .toFormat(format)
-    .toFile(outputPath + 1, (err, info) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("Image processed successfully:", info);
-      }
-    });
+  const callback = async (file: string, outputFileName: string) => {
+    try {
+      await sharp(file)
+        .resize(Number(width), Number(height))
+        .toFile(outputFileName);
+      console.log('Image processed successfully:', outputFileName);
+      return true;
+    } catch (err) {
+      console.error('Error processing image:', file, err);
+      return false;
+    }
+  };
+
+  traversePath(inputPath, outputPath, callback);
 };
