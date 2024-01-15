@@ -1,2 +1,9 @@
 node_modules
 dist
+*.jpeg
+*.png
+*.jpg
+*.webp
+*.gif
+*.tiff
+*.svg
