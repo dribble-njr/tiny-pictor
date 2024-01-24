@@ -1,8 +1,8 @@
 import sharp from 'sharp';
 import { dirname } from 'path';
-import { mkdirP, pathExists } from './fs';
-import { ResizeOptions } from './types';
-import { traversePath } from './util';
+import { mkdirP, pathExists } from '../fs';
+import { ResizeOptions } from '../types';
+import { traversePath } from '../util';
 
 /**
  * resize image by options
@@ -10,7 +10,19 @@ import { traversePath } from './util';
  * @param option Options
  */
 export const resizeImage = async (options: ResizeOptions) => {
-  const { inputPath, width, height, outputPath } = options;
+  const {
+    inputPath,
+    width,
+    height,
+    outputPath,
+    fit,
+    position,
+    background,
+    kernel,
+    withoutEnlargement,
+    withoutReduction,
+    fastShrinkOnLoad,
+  } = options;
   console.log('Input Path:', inputPath);
   console.log('Output Path:', outputPath);
   console.log('Width:', width);
@@ -28,12 +40,24 @@ export const resizeImage = async (options: ResizeOptions) => {
     mkdirP(outputPath);
   }
 
+  const resizeOptions = {
+    width: Number(width),
+    height: Number(height),
+    fit,
+    position,
+    background,
+    kernel,
+    withoutEnlargement,
+    withoutReduction,
+    fastShrinkOnLoad,
+  };
+
+  console.log(resizeOptions, 'resizeOptions');
+
   const callback = async (file: string, outputFileName: string) => {
     try {
       await mkdirP(dirname(outputFileName));
-      await sharp(file)
-        .resize({ width: Number(width), height: Number(height) })
-        .toFile(outputFileName);
+      await sharp(file).resize(resizeOptions).toFile(outputFileName);
       console.log('Image processed successfully:', outputFileName);
       return true;
     } catch (err) {

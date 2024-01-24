@@ -5,4 +5,4 @@ export interface BasicOptions {
   outputPath: string;
 }
 
-export type ResizeOptions = SharpResizeOptions & BasicOptions;
+export interface ResizeOptions extends SharpResizeOptions, BasicOptions {}

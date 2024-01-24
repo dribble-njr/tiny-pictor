@@ -54,6 +54,8 @@ You can resize the image by `tiny-pictor resize -i <input> -o <output> [options]
 '-h, --height <height>', 'height of the output image'
 ```
 
+Other options are the same as [the resize options of sharp](https://sharp.pixelplumbing.com/api-resize#resize). You should use complete option name like `--withoutEnlargement` instead of `-w`.
+
 ## Contributing
 
 Contributions are welcome and appreciated.
