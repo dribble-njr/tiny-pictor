@@ -1,7 +1,8 @@
-export interface Options {
+import { ResizeOptions as SharpResizeOptions } from 'sharp';
+
+export interface BasicOptions {
   inputPath: string;
   outputPath: string;
-  width: number;
-  height: number;
-  format: string;
 }
+
+export type ResizeOptions = SharpResizeOptions & BasicOptions;

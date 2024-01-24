@@ -1,21 +1,20 @@
 import sharp from 'sharp';
 import { dirname } from 'path';
 import { mkdirP, pathExists } from './fs';
-import { Options } from './types';
+import { ResizeOptions } from './types';
 import { traversePath } from './util';
 
 /**
- * compress image by options
+ * resize image by options
  *
  * @param option Options
  */
-export const compressImage = async (options: Options) => {
-  const { inputPath, width, height, format, outputPath } = options;
+export const resizeImage = async (options: ResizeOptions) => {
+  const { inputPath, width, height, outputPath } = options;
   console.log('Input Path:', inputPath);
   console.log('Output Path:', outputPath);
   console.log('Width:', width);
   console.log('Height:', height);
-  console.log('Format:', format);
 
   const inputPathExist = await pathExists(inputPath);
   const outputPathExist = await pathExists(outputPath);
@@ -33,7 +32,7 @@ export const compressImage = async (options: Options) => {
     try {
       await mkdirP(dirname(outputFileName));
       await sharp(file)
-        .resize(Number(width), Number(height))
+        .resize({ width: Number(width), height: Number(height) })
         .toFile(outputFileName);
       console.log('Image processed successfully:', outputFileName);
       return true;

@@ -1,27 +1,33 @@
 import { Command } from 'commander';
 import { VERSION, NAME, DESCRIPTION } from './constant';
-import { compressImage } from './compress';
+import { resizeImage } from './resize';
 
 const program = new Command();
 
 program.name(NAME).description(DESCRIPTION).version(VERSION);
 
 program
-  .option('-v, --version', 'output the version number')
   .option('-i, --input <inputPath>', 'input file path', '.')
-  .option('-o, --output <outputPath>', 'output file path', './tiny-pictor')
+  .option('-o, --output <outputPath>', 'output file path', './tiny-pictor');
+
+program
+  .command('resize')
+  .description('resize an image')
   .option('-w, --width <width>', 'width of the output image')
   .option('-h, --height <height>', 'height of the output image')
-  .option('-f, --format <format>', 'format of the output image');
+  .action((cmd) => {
+    const globalOptions = program.opts();
+
+    resizeImage({
+      inputPath: globalOptions.input,
+      outputPath: globalOptions.output,
+      width: cmd.width,
+      height: cmd.height,
+    });
+  });
+
+program.configureHelp({
+  showGlobalOptions: true,
+});
 
 program.parse();
-
-const options = program.opts();
-
-compressImage({
-  inputPath: options.input,
-  outputPath: options.output,
-  width: options.width,
-  height: options.height,
-  format: options.format,
-});
