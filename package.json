@@ -1,6 +1,6 @@
 {
   "name": "tiny-pictor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A tiny image compress cross-platform cli based on sharp",
   "bin": {
     "tp": "./bin/cli.js"
@@ -12,6 +12,10 @@
     "lint": "eslint --ext .ts .",
     "format": "prettier --write './src/**/*.ts'"
   },
+  "files": [
+    "dist",
+    "bin"
+  ],
   "keywords": [
     "tiny",
     "pictor",
